@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Books page{% endblock %}
+
+{% block content %}
+    <h1>Books list</h1>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <form class="d-flex" method='get'>
+                <input class="form-control me-2" type="text" placeholder="Search" name='q' value={{search_query}}>
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    {% if page_obj %}
+        {% for book in page_obj.object_list %}
+
+            <div class="row mb-3">
+                <div class="col-2">
+                    <img class="cover-pic" src="{{ book.book_cover.url }}" alt="">
+                </div>
+                <div class="col-6 ms-5">
+                    <a href="{% url 'books:detail' book.id %}">{{ book.title }}</a>
+                    <p>
+                        {{ book.desc }}
+                    </p>
+                </div>
+            </div>
+
+        {% endfor %}
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'books:list' %}?page={{ page_obj.previous_page_number }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if page_obj.number %}
+                    <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'books:list' %}?page={{ page_obj.next_page_number }}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    {% else %}
+        No book found.
+    {% endif %}
+{% endblock %}

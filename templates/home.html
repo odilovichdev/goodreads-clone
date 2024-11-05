@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+    <h3>Home page</h3>
+
+    {% for review in page_obj %}
+        <div class="container posts-content">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="media mb-3">
+                                <img src="{{ review.user.image.url }}"
+                                     class="d-block ui-w-40 rounded-circle" alt="">
+                                <div class="media-body ml-3">
+                                    <b>{{ review.user.username }}</b> rated this book {{ review.stars_given }} stars
+                                    <div class="text-muted small">{{ review.created_at | date:"M d, Y" }}</div>
+                                </div>
+                            </div>
+
+                            <p>
+                                {{ review.comment | truncatechars:250 }}
+                            </p>
+                            <img class="cover-pic center" src="{{ review.book.book_cover.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'common:home_page' %}?page={{ page_obj.previous_page_number }}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if page_obj.number %}
+                <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'common:home_page' %}?page={{ page_obj.next_page_number }}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
