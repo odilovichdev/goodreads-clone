@@ -211,3 +211,11 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+# Celery sozlamalari
+CELERY_BROKER_URL = 'amqp://fazliddin:1@rabbitmq:5672/'
+result_backend = 'rpc://'
+# broker_url = 'amqp://fazliddin:1@localhost//'
+
+

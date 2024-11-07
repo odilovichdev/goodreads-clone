@@ -1,17 +1,19 @@
 version: '3'
 
 services:
+
   web:
     build: .
-    command: python manage.py runserver:8000
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     env_file:
       - .env
     volumes:
       - media_file:/app/media-files
-#      - static_file:/app/static-file
+      - static_file:/app/static-file
     depends_on:
+      - rabbitmq
       - db
 
   db:
@@ -23,18 +25,54 @@ services:
     ports:
       - "5432:5432"
 
-#  nginx:
-#    build: ./nginx
-#    ports:
-#      - "1337:80"
-#    volumes:
-#      - media_file:/app/media-files
-#      - static_file:/app/static-file
-#    depends_on:
-#      - web
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5673:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: fazliddin
+      RABBITMQ_DEFAULT_PASS: 1
 
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+#    restart: unless-stopped
+
+  celery_worker:
+    build: .
+    container_name: celery_worker
+    command: celery -A goodreads worker -l INFO
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+#    restart: unless-stopped
+#
+  celery_beat:
+    build: .
+    container_name: celery_beat
+    command: celery -A goodreads beat -l INFO
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+#    restart: unless-stopped
+#
+  flower:
+    build: .
+    container_name: flower
+    command: celery -A goodreads flower --address=0.0.0.0 --port=5555
+    ports:
+      - "5555:5555"
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+#    restart: unless-stopped
 
 volumes:
   media_file:
-#  static_file:
+  static_file:
   postgres_data:
+  rabbitmq_data:
