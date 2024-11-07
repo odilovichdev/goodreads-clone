@@ -97,6 +97,8 @@ fabric.properties
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
 .idea
 .env
+.prod.db.env
+.db.env
 **/__pycache__/
 media-files
 **/migrations/**
