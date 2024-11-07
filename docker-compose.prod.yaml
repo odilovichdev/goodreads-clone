@@ -84,3 +84,5 @@ volumes:
   media_file:
   static_file:
   postgres_data:
+  rabbitmq_data:
+
