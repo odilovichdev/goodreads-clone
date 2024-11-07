@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     volumes:
-      - media_files:/app/media-files
+      - media_file:/app/media-files
 #      - static_file:/app/static-file
     depends_on:
       - db
@@ -35,6 +35,6 @@ services:
 
 
 volumes:
-  media_files:
+  media_file:
 #  static_file:
   postgres_data:
