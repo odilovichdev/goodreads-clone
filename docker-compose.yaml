@@ -14,8 +14,8 @@ services:
       - media_file:/app/media-files
       - static_file:/app/static-file
     depends_on:
-      - rabbitmq
       - db
+      - rabbitmq
 
   db:
     image: postgres:17.0-alpine3.20
@@ -35,6 +35,9 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: fazliddin
       RABBITMQ_DEFAULT_PASS: 1
+    depends_on:
+      - db
+      - web
 
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
