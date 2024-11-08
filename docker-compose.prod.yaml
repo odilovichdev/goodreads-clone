@@ -3,6 +3,7 @@ version: '3'
 services:
   web:
     build: .
+    entrypoint: /app/entrypoint.sh
     command: gunicorn goodreads.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
@@ -12,8 +13,8 @@ services:
       - media_file:/app/media-files
       - static_file:/app/static-files
     depends_on:
-      - rabbitmq
       - db
+      - rabbitmq
 
   db:
     image: postgres:17.0-alpine3.20
