@@ -17,13 +17,13 @@ services:
       - db
 
   db:
-    image: postgres:latest
+    image: postgres:17.0-alpine3.20
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .db.env
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
