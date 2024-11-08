@@ -57,26 +57,26 @@ services:
       - rabbitmq
   #    restart: unless-stopped
   #
-  celery_beat:
-    build: .
-    container_name: celery_beat
-    command: celery -A goodreads beat -l INFO
-    env_file:
-      - .env
-    depends_on:
-      - rabbitmq
+#  celery_beat:
+#    build: .
+#    container_name: celery_beat
+#    command: celery -A goodreads beat -l INFO
+#    env_file:
+#      - .env
+#    depends_on:
+#      - rabbitmq
   #    restart: unless-stopped
   #
-  flower:
-    build: .
-    container_name: flower
-    command: celery -A goodreads flower --address=0.0.0.0 --port=5555
-    ports:
-      - "5555:5555"
-    env_file:
-      - .env
-    depends_on:
-      - rabbitmq
+#  flower:
+#    build: .
+#    container_name: flower
+#    command: celery -A goodreads flower --address=0.0.0.0 --port=5555
+#    ports:
+#      - "5555:5555"
+#    env_file:
+#      - .env
+#    depends_on:
+#      - rabbitmq
   #    restart: unless-stopped
 
 
