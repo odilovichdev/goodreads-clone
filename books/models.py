@@ -10,7 +10,7 @@ class Book(models.Model):
     desc = models.TextField()
     isbn = models.CharField(max_length=17)
     book_cover = models.ImageField(
-        upload_to='books/', default='books/default_cover.png')
+        upload_to='books/', default='books/default_book.jpeg')
 
     def __str__(self):
         return self.title
