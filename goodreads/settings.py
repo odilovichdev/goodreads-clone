@@ -199,8 +199,6 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = 'static-files'
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -218,7 +216,7 @@ EMAIL_USE_SSL = False
 SESSION_COOKIE_SECURE = False  # Set to True only if you are using HTTPS
 SESSION_COOKIE_SAMESITE = 'Lax'  # Set to 'None' if using cross-site sessions
 
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
 ]
