@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
     "crispy_forms",
     "crispy_bootstrap5",
-    'corsheaders',
 
     'users',
     'books',
@@ -60,8 +59,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'goodreads.middleware.SimpleMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
@@ -213,20 +210,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
-SESSION_COOKIE_SECURE = False  # Set to True only if you are using HTTPS
-SESSION_COOKIE_SAMESITE = 'Lax'  # Set to 'None' if using cross-site sessions
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',
-]
-
-CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
-CORS_ALLOW_CREDENTIALS = True
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    'http://localhost:8000',
-]
 
 # Celery sozlamalari
 CELERY_BROKER_URL = 'amqp://fazliddin:1@rabbitmq:5672/'
