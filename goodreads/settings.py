@@ -212,6 +212,10 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
+SESSION_COOKIE_SECURE = False  # Set to True only if you are using HTTPS
+SESSION_COOKIE_SAMESITE = 'Lax'  # Set to 'None' if using cross-site sessions
+
+
 
 # Celery sozlamalari
 CELERY_BROKER_URL = 'amqp://fazliddin:1@rabbitmq:5672/'
